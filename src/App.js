@@ -1,17 +1,18 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.components";
 
 const HatesPage = (props) => {
   console.log(props);
   return (
     <div>
-      <h1> Home Page</h1>
+      <h1> Hats Page</h1>
     </div>
   );
 };
 
-const TopicsList = () => {
+const TopicsList = (props) => {
+  console.log(props);
   return (
     <div>
       <h1> Topics List Page</h1>
@@ -19,23 +20,26 @@ const TopicsList = () => {
   );
 };
 
-const TopicsDetails = () => {
+const TopicsDetails = (props) => {
+  console.log(props);
   return (
     <div>
-      <h1> Topics Details Page</h1>
+      <h1> Topics Details Page: {props.match.params.topicID}</h1>
     </div>
   );
 };
 
-function App() {
+const App = () => {
   return (
-    <div>
+    <BrowserRouter>
       <Routes>
-        <Route exact path="/" Component={HomePage} />
-        <Route exact path="/hats" Component={HatesPage} />
+        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/hats" element={<HatesPage />} />
+        <Route exact path="/topics" element={<TopicsList />} />
+        <Route exact path="/topics/:topicID" element={<TopicsDetails />} />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
