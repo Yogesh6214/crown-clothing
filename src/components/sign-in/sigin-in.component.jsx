@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import "./sigin-in.style.scss";
+import { signInWithGoogle } from "../../firebase/firebase.utils";
+import "./sign-in.style.scss"; // corrected typo here
+
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -52,6 +54,20 @@ class SignIn extends Component {
           />
           <div className="buttons">
             <CustomButton type="submit">SignIN</CustomButton>
+            <CustomButton
+              onClick={() => {
+                // Close any existing popups
+                window.close();
+
+                // Trigger the sign-in process
+                signInWithGoogle().catch((error) => {
+                  // Handle errors here
+                  console.error(error);
+                });
+              }}
+            >
+              Sign in with Google
+            </CustomButton>
           </div>
         </form>
       </div>
