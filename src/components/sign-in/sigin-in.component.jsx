@@ -55,6 +55,7 @@ class SignIn extends Component {
           <div className="buttons">
             <CustomButton type="submit">SignIN</CustomButton>
             <CustomButton
+              isGoogleSignIn
               onClick={() => {
                 // Close any existing popups
                 window.close();
