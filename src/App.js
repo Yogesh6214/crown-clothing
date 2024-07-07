@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.components";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
@@ -8,6 +8,7 @@ import React from "react";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
+
 class App extends React.Component {
   unsubscribeFromAuth = null;
   componentDidMount() {
@@ -45,7 +46,17 @@ class App extends React.Component {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
-          <Route path="signin" element={<SignInandSignUpPage />} />
+          <Route
+            exact
+            path="/signin"
+            element={
+              this.props.currentUser ? (
+                <Navigate to="/" />
+              ) : (
+                <SignInandSignUpPage />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
     );
